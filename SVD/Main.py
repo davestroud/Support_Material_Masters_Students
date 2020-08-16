@@ -2,6 +2,7 @@
 # http://files.grouplens.org/datasets/movielens/ml-latest-small-README.html
 # http://files.grouplens.org/datasets/movielens/ml-latest-small.zip
 # we will only be using ratings.csv
+
 import pdb
 from scipy.linalg import svd
 import numpy as np
@@ -10,14 +11,25 @@ from collections import Counter
 import csv
 from scipy.sparse.linalg import svds
 
+# load ratings dataset
 with open('./ratings.csv', 'r') as f:
     data = list(csv.reader(f, delimiter=',', quotechar='"'))
 
 len(data)
 
+"""
+    Note the use of list comprehensions. They are similiar to for-loops over
+    a collection expressed in a more terse and compact syntax.
+    [(expression) for (value) in (collection)]
+
+"""
+
 Counter([x[0] for x in data[1:]]).most_common(100)
+
 num_users = len(Counter([x[0] for x in data[1:]]))
+
 Counter([x[1] for x in data]).most_common(100)
+
 num_movies = len(Counter([x[1] for x in data[1:]]))
 M = np.zeros((num_users, num_movies))  # users by movies matirx
 
